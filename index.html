@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="QuickDown — a clean, simple downloader for direct video and audio file links you are authorized to save.">
+<title>QuickDown — Media Downloader</title>
+<style>
+:root{--bg:#0b1020;--panel:#121a2e;--panel2:#17223b;--text:#f4f7ff;--muted:#9ba9c5;--accent:#6d7cff;--accent2:#35d6bd;--border:#293653}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(ellipse at 50% -20%,#26376b 0%,var(--bg) 58%);color:var(--text);min-height:100vh}
+.wrap{width:min(1000px,92%);margin:auto}.nav{height:78px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff12}
+.brand{font-size:23px;font-weight:850;letter-spacing:-.8px;display:flex;gap:10px;align-items:center}.logo{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#9c6bff);box-shadow:0 8px 24px #6d7cff44}
+.badge{font-size:12px;color:#b6c2df;border:1px solid var(--border);padding:7px 11px;border-radius:99px}
+.hero{text-align:center;padding:72px 0 34px}.eyebrow{color:var(--accent2);font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:clamp(34px,6vw,58px);letter-spacing:-2px;line-height:1.08;margin:17px 0}.hero p{color:var(--muted);max-width:590px;line-height:1.7;margin:0 auto}
+.card{max-width:760px;margin:30px auto 0;padding:24px;background:linear-gradient(145deg,#151f37,#10182b);border:1px solid var(--border);border-radius:24px;box-shadow:0 24px 80px #0005}
+.label{display:block;text-align:left;color:#cbd5eb;font-size:13px;font-weight:700;margin:0 0 10px}
+.inputrow{display:flex;gap:10px}.urlinput{flex:1;min-width:0;padding:17px 16px;border-radius:13px;background:#0b1223;border:1px solid #334260;color:white;font-size:15px;outline:none}.urlinput:focus{border-color:var(--accent);box-shadow:0 0 0 3px #6d7cff25}
+button{border:0;border-radius:13px;background:linear-gradient(135deg,var(--accent),#8a64f6);color:white;font-size:14px;font-weight:800;padding:0 22px;cursor:pointer;transition:transform .15s,filter .15s}button:hover{filter:brightness(1.1);transform:translateY(-1px)}button:focus-visible{outline:3px solid var(--accent2);outline-offset:3px}
+.hint{text-align:left;color:var(--muted);font-size:12px;margin:12px 2px 0;line-height:1.6}.result{display:none;text-align:left;margin-top:18px;padding:16px;border-radius:14px;background:#0a1222;border:1px solid var(--border);line-height:1.6}.result.show{display:block}.result strong{display:block;margin-bottom:5px}.result p{font-size:13px;color:var(--muted);margin:0 0 12px}.downloadlink{display:inline-block;color:#071521;background:var(--accent2);padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:800;font-size:13px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:42px 0 58px}.feature{padding:21px;border:1px solid var(--border);border-radius:18px;background:#111a2d99}.icon{font-size:24px}.feature h3{font-size:15px;margin:12px 0 7px}.feature p{font-size:13px;line-height:1.65;color:var(--muted);margin:0}
+.notice{max-width:760px;margin:0 auto 36px;border:1px solid #6c5a2a;background:#2a2416;border-radius:14px;padding:15px 17px;color:#e9d9a8;font-size:12px;line-height:1.7}.notice strong{color:#fff0bb}
+footer{border-top:1px solid #ffffff12;padding:25px 0 35px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(max-width:620px){.hero{padding-top:52px}.card{padding:17px}.inputrow{flex-direction:column}.inputrow button{padding:16px}.features{grid-template-columns:1fr}.badge{display:none}h1{letter-spacing:-1.2px}}
+</style>
+</head>
+<body>
+<header class="wrap nav">
+  <div class="brand"><span class="logo">↓</span> QuickDown</div>
+  <span class="badge">Simple · Fast · Browser-based</span>
+</header>
+<main class="wrap">
+  <section class="hero">
+    <div class="eyebrow">Your media, made simple</div>
+    <h1>Download media.<br><span style="background:linear-gradient(90deg,#8a96ff,#45e4cf);-webkit-background-clip:text;background-clip:text;color:transparent">Without the hassle.</span></h1>
+    <p>Paste a direct link to a video or audio file you have permission to save. No account needed for supported direct-file links.</p>
+    <div class="card">
+      <label class="label" for="url">Paste a direct media file URL</label>
+      <div class="inputrow">
+        <input class="urlinput" id="url" type="url" placeholder="https://example.com/video.mp4" autocomplete="url">
+        <button id="go">Check link ↗</button>
+      </div>
+      <div class="hint">Supported examples: direct links ending in .mp4, .webm, .mov, .mp3, or .wav. The remote server must allow browser access.</div>
+      <div class="result" id="result" role="status" aria-live="polite"></div>
+    </div>
+  </section>
+  <section class="features" aria-label="Features">
+    <article class="feature"><div class="icon">⚡</div><h3>Quick and simple</h3><p>A clean interface designed to work on phones, tablets, and desktop browsers.</p></article>
+    <article class="feature"><div class="icon">🔒</div><h3>No account required</h3><p>This demo does not store your links or ask for personal information.</p></article>
+    <article class="feature"><div class="icon">🎬</div><h3>Direct media links</h3><p>Use direct file URLs for content you own or are authorized to download.</p></article>
+  </section>
+  <aside class="notice"><strong>Important:</strong> This starter website downloads direct media-file URLs only. It does not extract videos from YouTube links. Follow each platform's terms and copyright rules, and only save content you own or have permission to download.</aside>
+</main>
+<footer class="wrap"><span>© <span id="year"></span> QuickDown</span><span>Built for a lightweight, mobile-friendly experience.</span></footer>
+<script>
+const input=document.getElementById('url'), result=document.getElementById('result');
+document.getElementById('year').textContent=new Date().getFullYear();
+function show(title, message, link){
+  result.innerHTML='';
+  const strong=document.createElement('strong'); strong.textContent=title; result.appendChild(strong);
+  const p=document.createElement('p'); p.textContent=message; result.appendChild(p);
+  if(link){const a=document.createElement('a');a.className='downloadlink';a.href=link;a.textContent='Open / download file';a.target='_blank';a.rel='noopener noreferrer';result.appendChild(a);}
+  result.classList.add('show');
+}
+document.getElementById('go').addEventListener('click',()=>{
+  const raw=input.value.trim();
+  if(!raw){show('Paste a link first','Enter a direct media-file URL to continue.');return;}
+  let u; try{u=new URL(raw)}catch(e){show('That link does not look valid','Check the URL and try again.');return;}
+  if(!['http:','https:'].includes(u.protocol)){show('Unsupported link','Please use an http or https URL.');return;}
+  if(/(^|\.)youtube\.com$|(^|\.)youtu\.be$|(^|\.)youtube-nocookie\.com$/i.test(u.hostname)){
+    show('YouTube link detected','This demo does not download or extract YouTube videos. Use YouTube’s official download features where available, or provide a direct media-file URL you are authorized to save.');return;
+  }
+  if(!/\.(mp4|webm|mov|m4v|mp3|wav|ogg|m4a)(?:$)/i.test(u.pathname)){
+    show('Direct file link expected','This URL does not appear to end in a supported media extension. If it is a webpage, it will not work in this demo.');return;
+  }
+  show('Link format looks good','The file will open from its original host. Whether it downloads depends on that server’s settings and browser access.',u.href);
+});
+input.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('go').click()});
+</script>
+</body>
+</html>
